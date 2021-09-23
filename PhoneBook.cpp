@@ -68,10 +68,10 @@ void PhoneBook::load(fstream& fs)
 
 PhoneBook& PhoneBook::operator=(const PhoneBook& obj)
 {
-    // TODO: insert return statement here
+    return *this;
 }
 
 PhoneBook& PhoneBook::operator=(PhoneBook&& obj)
 {
-    // TODO: insert return statement here
+    return *this;
 }
