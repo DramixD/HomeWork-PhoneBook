@@ -50,6 +50,12 @@ void PhoneBook::delContact(int index)
 
 void PhoneBook::print() const
 {
+    for (int i = 0; i < size; ++i)
+    {
+        cout << i << ".\n";
+        book[i].print();
+        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    }
 }
 
 void PhoneBook::save(fstream& fs) const
