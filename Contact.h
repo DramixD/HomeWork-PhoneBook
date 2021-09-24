@@ -34,5 +34,7 @@ public:
 	void print()const;
 	Contact& operator=(const Contact& obj);
 	Contact& operator=(Contact&& obj);
+	void save(fstream& fs)const;
+	void load(fstream& fs);
 };
 

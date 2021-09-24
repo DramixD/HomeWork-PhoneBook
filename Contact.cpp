@@ -129,3 +129,70 @@ Contact& Contact::operator=(Contact&& obj)
 	swap(phoneNumber, obj.phoneNumber);
 	return *this;
 }
+
+
+void Contact::save(fstream& fs) const
+{
+	fs.write((char*)&id, sizeof(int));
+	int len = firstName.length()+1;
+	fs.write((char*)&len, sizeof(int));
+	fs.write((char*)firstName.c_str(), sizeof(char) * len);
+	len = secondName.length()+1;
+	fs.write((char*)&len, sizeof(int));
+	fs.write((char*)secondName.c_str(), sizeof(char) * len);
+	len = address.length()+1;
+	fs.write((char*)&len, sizeof(int));
+	fs.write((char*)address.c_str(), sizeof(char) * len);
+	len = email.length()+1;
+	fs.write((char*)&len, sizeof(int));
+	fs.write((char*)email.c_str(), sizeof(char) * len);
+	len = phoneNumber.length()+1;
+	fs.write((char*)&len, sizeof(int));
+	fs.write((char*)phoneNumber.c_str(), sizeof(char) * len);
+}
+
+//void load(fstream& fs)
+//{
+//    delete[]name;
+//    fs.read((char*)&age, sizeof(int));
+//    int len = 0;
+//    fs.read((char*)&len, sizeof(int));
+//    name = new char[len];
+//    fs.read(name, sizeof(char) * len);
+//}
+
+void Contact::load(fstream& fs)
+{
+	fs.read((char*)&id, sizeof(int));
+
+	int len;
+	fs.read((char*)&len, sizeof(int));
+	char* tmp = new char[len];
+	fs.read(tmp, sizeof(char) * len);
+	firstName = tmp;
+	delete[] tmp;
+
+	fs.read((char*)&len, sizeof(int));
+	tmp = new char[len];
+	fs.read(tmp, sizeof(char) * len);
+	secondName = tmp;
+	delete[]tmp;
+
+	fs.read((char*)&len, sizeof(int));
+	tmp = new char[len];
+	fs.read(tmp, sizeof(char) * len);
+	address = tmp;
+	delete[]tmp;
+
+	fs.read((char*)&len, sizeof(int));
+	tmp = new char[len];
+	fs.read(tmp, sizeof(char) * len);
+	email = tmp;
+	delete[] tmp;
+
+	fs.read((char*)&len, sizeof(int));
+	tmp = new char[len];
+	fs.read(tmp, sizeof(char) * len);
+	phoneNumber = tmp;
+	delete[] tmp;
+}

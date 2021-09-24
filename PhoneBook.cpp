@@ -60,18 +60,42 @@ void PhoneBook::print() const
 
 void PhoneBook::save(fstream& fs) const
 {
+    fs.write((char*)&size, sizeof(int));
+    for (int i = 0; i < size; ++i)
+        book[i].save(fs);
 }
+
+
 
 void PhoneBook::load(fstream& fs)
 {
+    delete[]book;
+    fs.read((char*)&size, sizeof(int));
+    book = new Contact[size];
+    for (int i = 0; i < size; ++i)
+        book[i].load(fs);
 }
 
 PhoneBook& PhoneBook::operator=(const PhoneBook& obj)
 {
+    if (this == &obj)
+        return *this;
+    delete[]book;
+    size = obj.size;
+    book = new Contact[size];
+    for (int i = 0; i < size; ++i)
+        book[i] = obj.book[i];
     return *this;
 }
 
 PhoneBook& PhoneBook::operator=(PhoneBook&& obj)
 {
+    if (this == &obj)
+        return *this;
+    delete[]book;
+    book = nullptr;
+    size = 0;
+    swap(size, obj.size);
+    swap(book, obj.book);
     return *this;
 }
