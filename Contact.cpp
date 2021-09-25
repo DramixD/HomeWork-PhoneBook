@@ -151,15 +151,6 @@ void Contact::save(fstream& fs) const
 	fs.write((char*)phoneNumber.c_str(), sizeof(char) * len);
 }
 
-//void load(fstream& fs)
-//{
-//    delete[]name;
-//    fs.read((char*)&age, sizeof(int));
-//    int len = 0;
-//    fs.read((char*)&len, sizeof(int));
-//    name = new char[len];
-//    fs.read(name, sizeof(char) * len);
-//}
 
 void Contact::load(fstream& fs)
 {
